@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  php-env:
+    build: .
+    volumes:
+      - ./src:/var/www/html
+    ports:
+      - 9000:80
+      
+  db:
+    platform: linux/amd64 # For M1 Macs
+    image: mariadb:10.3
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+
+  phpmyadmin:
+    platform: linux/amd64 # For M1 Macs
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 9001:80
+    environment:
+      - PMA_ARBITRARY=1
